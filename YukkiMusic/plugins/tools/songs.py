@@ -226,10 +226,7 @@ async def song_helper_cb(client, CallbackQuery, _):
 
 # Downloading Songs Here
 
-
-@app.on_callback_query(
-    filters.regex(pattern=r"song_download") & ~BANNED_USERS
-)
+@app.on_callback_query(filters.regex(pattern=r"song_download") & ~BANNED_USERS)
 @languageCB
 async def song_download_cb(client, CallbackQuery, _):
     try:
@@ -241,29 +238,20 @@ async def song_download_cb(client, CallbackQuery, _):
     stype, format_id, vidid = callback_request.split("|")
     mystic = await CallbackQuery.edit_message_text(_["song_8"])
     yturl = f"https://www.youtube.com/watch?v={vidid}"
-    with yt_dlp.YoutubeDL({"quiet": True}) as ytdl:
-        x = ytdl.extract_info(yturl, download=False)
-    title = (x["title"]).title()
-    title = re.sub("\W+", " ", title)
+    title, duration_min, duration_sec, thumbnail, vidid = await YouTube.details(yturl)
     thumb_image_path = await CallbackQuery.message.download()
-    duration = x["duration"]
     if stype == "video":
         thumb_image_path = await CallbackQuery.message.download()
         width = CallbackQuery.message.photo.width
         height = CallbackQuery.message.photo.height
-        try:
-            file_path = await YouTube.download(
-                yturl,
-                mystic,
-                songvideo=True,
-                format_id=format_id,
-                title=title,
-            )
-        except Exception as e:
-            return await mystic.edit_text(_["song_9"].format(e))
+        file_path = await YouTube.download(
+            yturl, mystic, songvideo=True, format_id=format_id, title=title
+        )
+        if not file_path:
+            return await mystic.edit_text(_["song_9"])
         med = InputMediaVideo(
             media=file_path,
-            duration=duration,
+            duration=duration_sec,
             width=width,
             height=height,
             thumb=thumb_image_path,
@@ -273,7 +261,7 @@ async def song_download_cb(client, CallbackQuery, _):
         await mystic.edit_text(_["song_11"])
         await app.send_chat_action(
             chat_id=CallbackQuery.message.chat.id,
-            action=ChatAction.UPLOAD_VIDEO,
+            action=enums.ChatAction.UPLOAD_VIDEO,
         )
         try:
             await CallbackQuery.edit_message_media(media=med)
@@ -297,12 +285,12 @@ async def song_download_cb(client, CallbackQuery, _):
             caption=title,
             thumb=thumb_image_path,
             title=title,
-            performer=x["uploader"],
+            performer=vidid,
         )
         await mystic.edit_text(_["song_11"])
         await app.send_chat_action(
             chat_id=CallbackQuery.message.chat.id,
-            action=ChatAction.UPLOAD_AUDIO,
+            action=enums.ChatAction.UPLOAD_AUDIO,
         )
         try:
             await CallbackQuery.edit_message_media(media=med)
