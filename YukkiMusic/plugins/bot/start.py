@@ -198,8 +198,8 @@ if name[0:3] == "in":
                     config.LOG_GROUP_ID,
                     f"{message.from_user.mention} has just started bot to check <code>VIDEO INFORMATION</code>\n\n**USER ID:** {sender_id}\n**USER NAME:** {sender_name}",
                 )
-    else:
-        try:
+      else:
+         try:
             await app.resolve_peer(OWNER_ID[0])
             OWNER = OWNER_ID[0]
         except:
