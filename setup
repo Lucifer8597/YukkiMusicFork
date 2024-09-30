@@ -82,7 +82,6 @@ installation(){
 clear
 pprint "Welcome to Yukki Music Bot Setup Installer\n\n"
 pprint "If you see any error during Installation Process, Please refer to these files for logs: "
-pprint "\nFor node js errors , Checkout nodelog.txt"
 pprint "\nFor pypi packages errors , Checkout pypilog.txt"
 sleep 2
 pprint "\n\nScript needs sudo privileges in order to update & install packages.\n"
@@ -90,7 +89,6 @@ sudo test
 
 update
 packages
-node
 repo
 installation
 pprint "\n\n\n\n\nYukki Music Bot Installation Completed!" "cgreen"
