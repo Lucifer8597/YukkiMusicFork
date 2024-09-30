@@ -13,7 +13,6 @@ import platform
 from sys import version as pyver
 
 import psutil
-from ntgcalls import __version__ as ngtgver
 from pyrogram import __version__ as pyrover
 from pyrogram import filters
 from pyrogram.errors import MessageIdInvalid
@@ -378,7 +377,7 @@ async def overall_stats(client, CallbackQuery, _):
 **Python Version :** {pyver.split()[0]}
 **Pyrogram Version :** {pyrover}
 **Py-TgCalls Version :** {pytgver}
-**N-Tgcalls Version :** {ngtgver}
+
 **Storage Avail:** {total[:4]} GiB
 **Storage Used:** {used[:4]} GiB
 **Storage Left:** {free[:4]} GiB
