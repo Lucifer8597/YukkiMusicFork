@@ -116,7 +116,7 @@ async def start_comm(client, message: Message, _):
                 sender_name = message.from_user.first_name
                 return await app.send_message(
                     config.LOG_GROUP_ID,
-                    f"{message.from_user.mention} 𝐉𝐮𝐬𝐭 𝐒𝐭𝐚𝐫𝐭𝐞𝐝 𝐓𝐡𝐞 𝐁𝐨𝐭 𝐓𝐨 𝐂𝐡𝐞𝐜𝐤 <code>𝐒𝐮𝐝𝐨𝐥𝐢𝐬𝐭</code>\n\n**𝐔𝐬𝐞𝐫 𝐈𝐝:** {sender_id}\n**𝐔𝐬𝐞𝐫𝐧𝐚𝐦𝐞:** {sender_name}",
+                    f"{message.from_user.mention} Just Started the Bot to Check <code>SudoUsers</code>\n\n**USER ID:** {sender_id}\n**USERNAME:** {sender_name}",
                 )
             return
         if name[0:3] == "lyr":
@@ -127,18 +127,18 @@ async def start_comm(client, message: Message, _):
                 return await Telegram.send_split_text(message, lyrics)
             else:
                 return await message.reply_text(
-                    "𝐅𝐚𝐢𝐥𝐞𝐝 𝐓𝐨 𝐆𝐞𝐭 𝐋𝐲𝐫𝐢𝐜𝐬."
+                    "Failed to get lyrics."
                 )
         if name[0:3] == "del":
             await del_plist_msg(client=client, message=message, _=_)
         if name == "verify":
-            await message.reply_text(f"𝐇𝐞𝐲 {message.from_user.first_name},\n𝐓𝐡𝐚𝐧𝐤𝐬 𝐅𝐨𝐫 𝐕𝐞𝐫𝐢𝐟𝐲𝐢𝐧𝐠 𝐘𝐨𝐮𝐫𝐬𝐞𝐥𝐟 𝐈𝐧 {config.MUSIC_BOT_NAME}, 𝐍𝐨𝐰 𝐘𝐨𝐮 𝐂𝐚𝐧 𝐆𝐨 𝐁𝐚𝐜𝐤 & 𝐒𝐭𝐚𝐫𝐭 𝐔𝐬𝐢𝐧𝐠 𝐌𝐞.")
+            await message.reply_text(f"Hey {message.from_user.first_name},\nThanks For Verifying Yourself in the Bot {config.MUSIC_BOT_NAME}, Now You Can Play Your Songs.")
             if await is_on_off(config.LOG):
                 sender_id = message.from_user.id
                 sender_name = message.from_user.first_name
                 return await app.send_message(
                     config.LOG_GROUP_ID,
-                    f"{message.from_user.mention} 𝐉𝐮𝐬𝐭 𝐒𝐭𝐚𝐫𝐭𝐞𝐝 𝐓𝐡𝐞 𝐁𝐨𝐭 𝐓𝐨 <code> 𝐕𝐞𝐫𝐢𝐟𝐲 𝐇𝐢𝐦𝐬𝐞𝐥𝐟</code>\n\n**𝐔𝐬𝐞𝐫 𝐈𝐝:** {sender_id}\n**𝐔𝐬𝐞𝐫𝐧𝐚𝐦𝐞:** {sender_name}",
+                    f"{message.from_user.mention} Just started the bot to verify himself </code>\n\n**USER ID:** {sender_id}\n**USERMAME:** {sender_name}",
                 )
             return
         if name[0:3] == "inf":
